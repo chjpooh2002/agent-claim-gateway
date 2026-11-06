@@ -1,0 +1,37 @@
+[project]
+name = "commerce-claim-gateway"
+version = "0.1.0"
+description = "CS 에이전트가 서로 다른 쇼핑몰의 취소·반품을 하나의 인터페이스로 처리하게 하는 연동 계층"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi>=0.115",
+    "uvicorn[standard]>=0.30",
+    "pydantic-settings>=2.4",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.3",
+    "httpx>=0.27",
+    "ruff>=0.6",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/claim_gateway", "src/mock_malls"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+# E/F: 기본 오류, I: import 정렬, B: 흔한 버그 패턴, UP: 최신 문법, ASYNC: 비동기 실수
+select = ["E", "F", "I", "B", "UP", "ASYNC"]
